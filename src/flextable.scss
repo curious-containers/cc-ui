@@ -1,0 +1,91 @@
+$stripe-color: #eee;
+
+
+// ---------------------------------------------------------
+
+
+.flexcol,
+.flexrow,
+.flexitem {
+   flex-grow: 1;
+   flex-basis: 0;
+}
+
+.flexcol {
+   flex-flow: column nowrap;
+}
+
+.item,
+.flexrow,
+.flexitem {
+   display: flex;
+   flex-flow: row nowrap;
+}
+
+.item,
+.flexitem {
+   align-items: center;
+   word-break: break-all;
+   word-break: break-word; // webkit only
+   hyphens: auto;
+}
+
+.flexitem > * {
+   flex: 1;
+   display: inline-block;
+   box-sizing: border-box;
+}
+
+
+// ---------------------------------------------------------
+
+
+.flextable {
+   .radio,
+   .radio + .radio {
+      margin-top: auto;
+      margin-bottom: auto;
+   }
+
+   // Flexrows
+
+   .flexrow { padding: 5px; }
+
+   &.wide .flexrow { padding: 10px; }
+
+   &.narrow .flexrow,
+   .flexrow .flexrow { padding: 0; }
+
+   &:not(.striped) .flexrow:not(:last-child) { margin-bottom: 10px; }
+
+   .flexrow > :not(:last-child) { margin-right: 10px; }
+}
+
+.flexheader {
+   color: #7B7C7F;
+   font-weight: 700;
+}
+
+
+// ---------------------------------------------------------
+
+
+.flexitem,
+.item {
+   &.double {
+      flex: 2;
+      flex-basis: 10px;
+   }
+}
+
+.btn-reset {
+   opacity: 0.5;
+
+   &:hover { opacity: 1; }
+}
+
+.striped {
+   & > *:nth-child(odd) {
+      background-color: $stripe-color;
+   }
+}
