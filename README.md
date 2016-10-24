@@ -1,9 +1,9 @@
-# cc-ui
+# CC-UI
 
-Task monitoring web frontend for [cc-server](https://github.com/curious-containers/cc-server).
+This software is part of the Curious Containers project. Visit the [project website](http://www.curious-containers.cc/) or [read the documentation](http://www.curious-containers.cc/docs/html/index.html). 
 
 
-## Development
+## Developer Documentation
 
 ```sh
 npm install      # installs dependencies
