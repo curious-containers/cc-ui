@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import api from './Api';
+import { Link } from 'react-router';
+import { Table, Header, Row, Item } from './FlexTable';
+import { fromMongoDate } from './utils';
+import { api, stateIDs, stateToClass } from './Api';
 
 
 export default React.createClass({
@@ -16,11 +19,30 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    const group = this.props.location.query.group;
-    const match = group ? { task_group_id: group } : {};
+    const task_group_id = this.props.location.query.task_group_id;
 
-    api.getTasks({ match })
-      .then(tasks => this.setState({ tasks }));
+    const payload = {
+      aggregate: [
+        {
+          $match: {
+            'task_group_id.0': task_group_id,
+            state: { $ne: -1 },
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            state: 1,
+            username: 1,
+            created_at: 1,
+          },
+        },
+        { $sort: { created_at: -1 } },
+      ],
+    };
+
+    api.getTasks(payload)
+      .then(({ tasks }) => this.setState({ tasks }));
   },
 
   render() {
@@ -29,13 +51,29 @@ export default React.createClass({
     }
 
     if (_.isEmpty(this.state.tasks)) {
-      return (<h1>Keine Daten gefunden</h1>);
+      return (<div className="alert alert-error">Data not available</div>);
     }
 
     return (
-      <pre className="scroll">
-        {JSON.stringify(this.state.tasks, undefined, 4)}
-      </pre>
+      <Table striped wide>
+
+        <Header>
+          <Item>ID</Item>
+          <Item>Username</Item>
+          <Item>State</Item>
+          <Item>Created at</Item>
+        </Header>
+
+        {this.state.tasks.map((task, i) =>
+          <Row key={i}>
+            <Item><Link to={`/tasks/${task._id}`}>{task._id}</Link></Item>
+            <Item>{task.username}</Item>
+            <Item><span className={stateToClass[task.state]}>{stateIDs[task.state]}</span></Item>
+            <Item>{fromMongoDate(task.created_at)}</Item>
+          </Row>
+        )}
+
+      </Table>
     );
   },
 
