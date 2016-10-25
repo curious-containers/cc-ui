@@ -40,7 +40,7 @@ export default React.createClass({
 
     return (
       <div>
-        <h1>Task Group</h1>
+        <h1>Data Container</h1>
 
         <pre className="scroll">
           {formatJSON(this.state.data_container)}
