@@ -55,12 +55,12 @@ export default React.createClass({
 
     return (
       <div>
-        <h1>Tasks</h1>
+        <h1>List of Tasks</h1>
 
-        <table className="table-striped table-hover table-wide">
+        <table className="table-striped table-hover">
 
-          <thead>
-            <tr className="text-left">
+          <thead className="text-left">
+            <tr>
               <th>ID</th>
               <th>Username</th>
               <th>State</th>
