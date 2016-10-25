@@ -6,9 +6,11 @@ This software is part of the Curious Containers project. Visit the [project webs
 ## Developer Documentation
 
 ```sh
-npm install      # installs dependencies
+touch src/config.js    # create empty config file
 
-npm start        # starts development server
+npm install            # install dependencies
 
-npm run build    # creats an optimized production build
+npm start              # start development server
+
+npm run build          # create an optimized production build
 ```
