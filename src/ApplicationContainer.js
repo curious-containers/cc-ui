@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router';
-import { Table, Header, Row, Item } from './FlexTable';
 import { fromMongoDate } from './utils';
 import { api, stateIDs, stateToClass } from './Api';
 
@@ -60,7 +59,7 @@ export default React.createClass({
 
   render() {
     if (this.state.application_container == null) {
-      return (<h1 className="loading">Loading Application Container</h1>);
+      return (<h1>Loading Application Container<span className="loading" /></h1>);
     }
 
     if (_.isEmpty(this.state.application_container)) {
@@ -69,27 +68,31 @@ export default React.createClass({
 
     return (
       <div>
-        <h2>Data Containers</h2>
+        <h1>Data Containers</h1>
 
-        <Table striped wide>
+        <table className="table-striped table-hover table-wide">
 
-          <Header>
-            <Item>ID</Item>
-            <Item>Username</Item>
-            <Item>State</Item>
-            <Item>Created at</Item>
-          </Header>
+          <thead>
+            <tr className="text-left">
+              <th>ID</th>
+              <th>Username</th>
+              <th>State</th>
+              <th>Created at</th>
+            </tr>
+          </thead>
 
-          {this.state.data_containers.map((container, i) =>
-            <Row key={i}>
-              <Item><Link to={`/data-containers/${container._id}`}>{container._id}</Link></Item>
-              <Item>{container.username}</Item>
-              <Item><span className={stateToClass[container.state]}>{stateIDs[container.state]}</span></Item>
-              <Item>{fromMongoDate(container.created_at)}</Item>
-            </Row>
-          )}
+          <tbody>
+            {this.state.data_containers.map((container, i) =>
+              <tr key={i}>
+                <td><Link to={`/data-containers/${container._id}`}>{container._id}</Link></td>
+                <td>{container.username}</td>
+                <td className={stateToClass[container.state]}>{stateIDs[container.state]}</td>
+                <td>{fromMongoDate(container.created_at)}</td>
+              </tr>
+            )}
+          </tbody>
 
-        </Table>
+        </table>
 
         <h2>Application Container</h2>
 

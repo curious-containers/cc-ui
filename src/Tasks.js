@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router';
-import { Table, Header, Row, Item } from './FlexTable';
 import { fromMongoDate } from './utils';
 import { api, stateIDs, stateToClass } from './Api';
 
@@ -47,7 +46,7 @@ export default React.createClass({
 
   render() {
     if (this.state.tasks == null) {
-      return (<h1 className="loading">Loading Tasks</h1>);
+      return (<h1>Loading Tasks<span className="loading" /></h1>);
     }
 
     if (_.isEmpty(this.state.tasks)) {
@@ -55,25 +54,33 @@ export default React.createClass({
     }
 
     return (
-      <Table striped wide>
+      <div>
+        <h1>Tasks</h1>
 
-        <Header>
-          <Item>ID</Item>
-          <Item>Username</Item>
-          <Item>State</Item>
-          <Item>Created at</Item>
-        </Header>
+        <table className="table-striped table-hover table-wide">
 
-        {this.state.tasks.map((task, i) =>
-          <Row key={i}>
-            <Item><Link to={`/tasks/${task._id}`}>{task._id}</Link></Item>
-            <Item>{task.username}</Item>
-            <Item><span className={stateToClass[task.state]}>{stateIDs[task.state]}</span></Item>
-            <Item>{fromMongoDate(task.created_at)}</Item>
-          </Row>
-        )}
+          <thead>
+            <tr className="text-left">
+              <th>ID</th>
+              <th>Username</th>
+              <th>State</th>
+              <th>Created at</th>
+            </tr>
+          </thead>
 
-      </Table>
+          <tbody>
+            {this.state.tasks.map((task, i) =>
+              <tr key={i}>
+                <td><Link to={`/tasks/${task._id}`}>{task._id}</Link></td>
+                <td>{task.username}</td>
+                <td className={stateToClass[task.state]}>{stateIDs[task.state]}</td>
+                <td>{fromMongoDate(task.created_at)}</td>
+              </tr>
+            )}
+          </tbody>
+
+        </table>
+      </div>
     );
   },
 

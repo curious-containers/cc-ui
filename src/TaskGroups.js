@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router';
-import { Table, Header, Row, Item } from './FlexTable';
 import { fromMongoDate } from './utils';
 import { api, stateIDs, stateToClass } from './Api';
 
@@ -45,7 +44,7 @@ export default React.createClass({
 
   render() {
     if (this.state.groups == null) {
-      return (<h1 className="loading">Loading Task Groups</h1>);
+      return (<h1>Loading Task Groups<span className="loading" /></h1>);
     }
 
     if (_.isEmpty(this.state.groups)) {
@@ -53,27 +52,35 @@ export default React.createClass({
     }
 
     return (
-      <Table striped wide>
+      <div>
+        <h1>List of Task Groups</h1>
 
-        <Header>
-          <Item double>ID</Item>
-          <Item>Username</Item>
-          <Item>State</Item>
-          <Item>Number of Tasks</Item>
-          <Item>Created at</Item>
-        </Header>
+        <table className="table-striped table-hover table-wide">
 
-        {this.state.groups.map((group, i) =>
-          <Row key={i}>
-            <Item double><Link to={`/task-groups/${group._id}`}>{group._id}</Link></Item>
-            <Item>{group.username}</Item>
-            <Item><span className={stateToClass[group.state]}>{stateIDs[group.state]}</span></Item>
-            <Item><Link to={`/tasks?task_group_id=${group._id}`}>{group.tasks_count}</Link></Item>
-            <Item>{fromMongoDate(group.created_at)}</Item>
-          </Row>
-        )}
+          <thead>
+            <tr className="text-left">
+              <th>ID</th>
+              <th>Username</th>
+              <th>State</th>
+              <th>Tasks</th>
+              <th>Created at</th>
+            </tr>
+          </thead>
 
-      </Table>
+          <tbody>
+            {this.state.groups.map((group, i) =>
+              <tr key={i}>
+                <td><Link to={`/task-groups/${group._id}`}>{group._id}</Link></td>
+                <td>{group.username}</td>
+                <td className={stateToClass[group.state]}>{stateIDs[group.state]}</td>
+                <td><Link to={`/tasks?task_group_id=${group._id}`}>{group.tasks_count}</Link></td>
+                <td>{fromMongoDate(group.created_at)}</td>
+              </tr>
+            )}
+          </tbody>
+
+        </table>
+      </div>
     );
   },
 

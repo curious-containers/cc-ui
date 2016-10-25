@@ -6,7 +6,7 @@ import { api } from './Api';
 export default React.createClass({
 
   propTypes: {
-    params: React.PropTypes.number,
+    params: React.PropTypes.object,
   },
 
   getInitialState() {
@@ -26,7 +26,7 @@ export default React.createClass({
 
   render() {
     if (this.state.group == null) {
-      return (<p>Loading Group Transitions<span className="loading" /></p>);
+      return (<h1>Loading Task Group<span className="loading" /></h1>);
     }
 
     if (_.isEmpty(this.state.group)) {
@@ -34,9 +34,13 @@ export default React.createClass({
     }
 
     return (
-      <pre className="scroll">
-        {JSON.stringify(this.state.group, undefined, 4)}
-      </pre>
+      <div>
+        <h1>Task Group</h1>
+
+        <pre className="scroll">
+          {JSON.stringify(this.state.group, undefined, 4)}
+        </pre>
+      </div>
     );
   },
 
