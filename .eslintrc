@@ -44,6 +44,8 @@
       }
      ],
 
+     "camelcase": "off",           // due to mongo-db syntax
+
 
     // React
 

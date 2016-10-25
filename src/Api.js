@@ -4,12 +4,24 @@ import { host } from './config.js';
 
 const tokenName = 'cc-token';
 
+export const states = {
+  CREATED: 0,
+  WAITING: 1,
+  PROCESSING: 2,
+  SUCCESS: 3,
+  FAILED: 4,
+  CANCELLED: 5,
+};
+
+export const stateIDs = ['CREATED', 'WAITING', 'PROCESSING', 'SUCCESS', 'FAILED', 'CANCELLED'];
+
+export const stateToClass = ['text-info', 'text-info', 'text-info', 'text-success', 'text-error', 'text-info'];
 
 export class Api {
 
   constructor() {
     this.on = events.on;
-    this.host = host || window.location.origin;
+    this.host = host || `${window.location.origin}/cc`;
 
     this.get = (url, options = {}) => http.get(url, Object.assign(options, getAuthHeaders()));
     this.post = (url, options = {}) => http.post(url, Object.assign(options, getAuthHeaders()));
@@ -37,7 +49,7 @@ export class Api {
   }
 
   checkLogin() {
-    return this.get(this.host)
+    return this.get(`${this.host}/`)
       .then(() => true, () => false);
   }
 
@@ -47,6 +59,14 @@ export class Api {
 
   getTasks(payload) {
     return this.post(`${this.host}/tasks/query`, { body: JSON.stringify(payload) });
+  }
+
+  getApplicationContainers(payload) {
+    return this.post(`${this.host}/application-containers/query`, { body: JSON.stringify(payload) });
+  }
+
+  getDataContainers(payload) {
+    return this.post(`${this.host}/data-containers/query`, { body: JSON.stringify(payload) });
   }
 
 }
@@ -61,6 +81,6 @@ function getAuthHeaders(credentials) {
   };
 }
 
-const api = new Api(); // Singleton
+export const api = new Api(); // Singleton
 
 export default api;

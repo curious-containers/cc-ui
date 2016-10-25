@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Login from './Login';
-import api from './Api';
+import { api } from './Api';
 import { autologin, credentials } from './config.js';
 
 
@@ -67,8 +67,7 @@ export default React.createClass({
           <input type="checkbox" id="navigation-toggle" />
           <nav className="site-nav">
             <ul>
-              <li><Link to="/">Root</Link></li> /
-              <li><Link to="/task-groups">Task Groups</Link></li> /
+              <li><Link to="/task-groups">Task Groups</Link></li>
               <li><Link to="/tasks">Tasks</Link></li>
             </ul>
           </nav>

@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import api from './Api';
+import { Link } from 'react-router';
+import { Table, Header, Row, Item } from './FlexTable';
+import { fromMongoDate } from './utils';
+import { api, stateIDs, stateToClass } from './Api';
 
 
 export default React.createClass({
@@ -12,18 +15,44 @@ export default React.createClass({
   getInitialState() {
     return {
       task: null,
+      application_containers: [],
     };
   },
 
   componentDidMount() {
-    const payload = {
-      match: {
-        // task_group_id: this.props.params.id,
-      },
+    const id = this.props.params.id;
+
+    const taskPayload = {
+      aggregate: [
+        { $match: { _id: id } },
+      ],
     };
 
-    api.getTask(payload)
-      .then(task => this.setState({ task }));
+    api.getTasks(taskPayload)
+      .then(response => this.setState({ task: _.get(response, 'tasks[0]', {}) }));
+
+    const acPayload = {
+      aggregate: [
+        {
+          $match: {
+            'task_id.0': id,
+            state: { $ne: -1 },
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            state: 1,
+            username: 1,
+            created_at: 1,
+          },
+        },
+        { $sort: { created_at: -1 } },
+      ],
+    };
+
+    api.getApplicationContainers(acPayload)
+      .then(({ application_containers }) => this.setState({ application_containers }));
   },
 
   render() {
@@ -32,13 +61,39 @@ export default React.createClass({
     }
 
     if (_.isEmpty(this.state.task)) {
-      return (<h1>Keine Daten gefunden</h1>);
+      return (<div className="alert alert-error">Data not available</div>);
     }
 
     return (
-      <pre className="scroll">
-        {JSON.stringify(this.state.task, undefined, 4)}
-      </pre>
+      <div>
+        <h2>Application Containers</h2>
+
+        <Table striped wide>
+
+          <Header>
+            <Item>ID</Item>
+            <Item>Username</Item>
+            <Item>State</Item>
+            <Item>Created at</Item>
+          </Header>
+
+          {this.state.application_containers.map((container, i) =>
+            <Row key={i}>
+              <Item><Link to={`/application-containers/${container._id}`}>{container._id}</Link></Item>
+              <Item>{container.username}</Item>
+              <Item><span className={stateToClass[container.state]}>{stateIDs[container.state]}</span></Item>
+              <Item>{fromMongoDate(container.created_at)}</Item>
+            </Row>
+          )}
+
+        </Table>
+
+        <h2>Task</h2>
+
+        <pre className="scroll">
+          {JSON.stringify(this.state.task, undefined, 4)}
+        </pre>
+      </div>
     );
   },
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import api from './Api';
+import { api } from './Api';
 
 
 export default React.createClass({
@@ -17,12 +17,7 @@ export default React.createClass({
 
   componentDidMount() {
     const payload = {
-      match: {
-        _id: this.props.params.id,
-      },
-      project: {
-        transitions: 1,
-      },
+      aggregate: [{ $match: { _id: this.props.params.id } }],
     };
 
     api.getTaskGroups(payload)
@@ -35,7 +30,7 @@ export default React.createClass({
     }
 
     if (_.isEmpty(this.state.group)) {
-      return (<p>Keine Daten gefunden</p>);
+      return (<div className="alert alert-error">Data not available</div>);
     }
 
     return (

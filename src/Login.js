@@ -1,5 +1,5 @@
 import React from 'react';
-import api from './Api';
+import { api } from './Api';
 import './login.css';
 
 
