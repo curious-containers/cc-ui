@@ -57,6 +57,10 @@ export function decodeHtmlEntities(html) {
   return elem.value;
 }
 
+export function formatJSON(json) {
+  return JSON.stringify(json, undefined, 4).replace(/\\n/g, '\n').replace(/\\"/g, '"');
+}
+
 
 // Enums -------------------------------------------------------
 // From https://gist.github.com/oriSomething/16a16d8ea12573307dc6

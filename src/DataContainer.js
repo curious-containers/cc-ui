@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { api } from './Api';
+import { formatJSON } from './utils';
 
 
 export default React.createClass({
@@ -42,7 +43,7 @@ export default React.createClass({
         <h1>Task Group</h1>
 
         <pre className="scroll">
-          {JSON.stringify(this.state.data_container, undefined, 4)}
+          {formatJSON(this.state.data_container)}
         </pre>
       </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router';
-import { fromMongoDate } from './utils';
+import { fromMongoDate, formatJSON } from './utils';
 import { api, stateIDs, stateToClass } from './Api';
 
 
@@ -94,7 +94,7 @@ export default React.createClass({
         <h2>Task</h2>
 
         <pre className="scroll">
-          {JSON.stringify(this.state.task, undefined, 4)}
+          {formatJSON(this.state.task)}
         </pre>
       </div>
     );
