@@ -21,7 +21,7 @@ export class Api {
 
   constructor() {
     this.on = events.on;
-    this.host = host || `${window.location.origin}/cc`;
+    this.host = host ? host.replace(/\/$/, '') : `${window.location.origin}/cc`;
 
     this.get = (url, options = {}) => http.get(url, Object.assign(options, getAuthHeaders()));
     this.post = (url, options = {}) => http.post(url, Object.assign(options, getAuthHeaders()));
