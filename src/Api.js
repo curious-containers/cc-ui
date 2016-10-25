@@ -15,7 +15,7 @@ export const states = {
 
 export const stateIDs = ['CREATED', 'WAITING', 'PROCESSING', 'SUCCESS', 'FAILED', 'CANCELLED'];
 
-export const stateToClass = ['text-info', 'text-info', 'text-info', 'text-success', 'text-error', 'text-info'];
+export const stateToClass = ['table-info', 'table-info', 'table-info', 'table-success', 'table-error', 'table-info'];
 
 export class Api {
 

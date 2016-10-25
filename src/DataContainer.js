@@ -30,7 +30,7 @@ export default React.createClass({
 
   render() {
     if (this.state.data_container == null) {
-      return (<h1 className="loading">Loading Data Container</h1>);
+      return (<h1>Loading Data Container<span className="loading" /></h1>);
     }
 
     if (_.isEmpty(this.state.data_container)) {
@@ -38,9 +38,13 @@ export default React.createClass({
     }
 
     return (
-      <pre className="scroll">
-        {JSON.stringify(this.state.data_container, undefined, 4)}
-      </pre>
+      <div>
+        <h1>Task Group</h1>
+
+        <pre className="scroll">
+          {JSON.stringify(this.state.data_container, undefined, 4)}
+        </pre>
+      </div>
     );
   },
 
