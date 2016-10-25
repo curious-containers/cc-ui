@@ -65,7 +65,7 @@ export default React.createClass({
 
     return (
       <div>
-        <h1>Task</h1>
+        <h1>Application Containers</h1>
 
         <table className="table-striped table-hover">
 
