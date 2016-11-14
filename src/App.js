@@ -80,12 +80,12 @@ export default React.createClass({
             <label htmlFor="navigation-toggle">≡</label>
           </nav>
           <input type="checkbox" id="navigation-toggle" />
-          <nav className="site-nav">
+          <nav className="site-nav nav-separated">
             <ul>
-              <li><Link to="/task-groups">Task Groups</Link></li>
-              <li><Link to="/tasks">Tasks</Link></li>
-              <li><Link to="/application-containers">App Containers</Link></li>
-              <li><Link to="/data-containers">Data Containers</Link></li>
+              <li><Link activeClassName="active" to="/task-groups">Task Groups</Link></li>
+              <li><Link activeClassName="active" to="/tasks">Tasks</Link></li>
+              <li><Link activeClassName="active" to="/application-containers">App Containers</Link></li>
+              <li><Link activeClassName="active" to="/data-containers">Data Containers</Link></li>
               {this.state.loggedIn && <li><Link to="/" onClick={api.logout}>Logout</Link></li>}
             </ul>
           </nav>
