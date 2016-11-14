@@ -52,7 +52,7 @@ export default React.createClass({
     if (this.state.errorMessage) {
       return (
         <div className="alert alert-error m-b-2">
-          <strong>Fehler</strong> {this.state.errorMessage} <a href="/" className="pull-right">Neu laden</a>
+          <strong>Error</strong> {this.state.errorMessage} <a href="/" className="pull-right">Reload</a>
         </div>
       );
     }
