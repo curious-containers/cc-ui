@@ -13,4 +13,6 @@ npm install            # install dependencies
 npm start              # start development server
 
 npm run build          # create an optimized production build
+
+npm run sync           # deploy current build to server
 ```
