@@ -45,6 +45,7 @@
      ],
 
      "camelcase": "off",           // due to mongo-db syntax
+     "arrow-parens": "off",        // meh …
 
 
     // React
