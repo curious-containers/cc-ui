@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { Link } from 'react-router';
 import { fromMongoDate } from './utils';
 import { api, stateIDs, stateToClass } from './Api';
+import ToggleInput from './ToggleInput';
 
 
 export default React.createClass({
@@ -12,32 +13,41 @@ export default React.createClass({
   },
 
   getInitialState() {
+    const aggregate = [
+      {
+        $match: {
+          state: { $ne: -1 },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          state: 1,
+          username: 1,
+          tasks_count: 1,
+          created_at: 1,
+        },
+      },
+      { $sort: { created_at: -1 } },
+    ];
+
     return {
       groups: null,
+      aggregate: JSON.stringify(aggregate, null, 4),
     };
   },
 
   componentDidMount() {
-    const payload = {
-      aggregate: [
-        {
-          $match: {
-            state: { $ne: -1 },
-          },
-        },
-        {
-          $project: {
-            _id: 1,
-            state: 1,
-            username: 1,
-            tasks_count: 1,
-            created_at: 1,
-          },
-        },
-        { $sort: { created_at: -1 } },
-      ],
-    };
+    this.loadData();
+  },
 
+  setAggregate(aggregate) {
+    this.setState({ aggregate });
+    this.loadData();
+  },
+
+  loadData() {
+    const payload = { aggregate: JSON.parse(this.state.aggregate) };
     api.getTaskGroups(payload)
       .then(groups => this.setState({ groups: groups.task_groups }));
   },
@@ -47,12 +57,10 @@ export default React.createClass({
       return (<h1>Loading Task Groups<span className="loading" /></h1>);
     }
 
-    if (_.isEmpty(this.state.groups)) {
-      return (<div className="alert alert-error">Data not available</div>);
-    }
-
     return (
       <div>
+        <ToggleInput onChange={this.setAggregate} heading="`aggregate` bearbeiten" value={this.state.aggregate} className="pull-right" />
+
         <h1>List of Task Groups</h1>
 
         <table className="table-striped table-hover">
@@ -68,7 +76,7 @@ export default React.createClass({
           </thead>
 
           <tbody>
-            {this.state.groups.map((group, i) =>
+            {_.map(this.state.groups, (group, i) =>
               <tr key={i}>
                 <td><Link to={`/task-groups/${group._id}`}>{group._id}</Link></td>
                 <td>{group.username}</td>
