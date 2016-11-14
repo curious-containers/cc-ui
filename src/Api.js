@@ -27,6 +27,8 @@ export class Api {
     this.post = (url, options = {}) => http.post(url, Object.assign(options, getAuthHeaders()));
     this.put = (url, options = {}) => http.put(url, Object.assign(options, getAuthHeaders()));
     this.del = (url, options = {}) => http.del(url, Object.assign(options, getAuthHeaders()));
+
+    this.on('sessionEnded', () => localStorage.removeItem(tokenName));
   }
 
   login(username, password) {
@@ -44,7 +46,6 @@ export class Api {
   }
 
   logout() {
-    localStorage.removeItem(tokenName);
     events.emit('sessionEnded');
   }
 

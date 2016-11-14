@@ -33,18 +33,6 @@ export function del(input, options = {}) {
 
 // The main fetch function ------------------------------------
 
-export function fetch(input, options = {}) {
-  options.mode = options.mode || 'cors';
-  events.emit('request', input);
-
-  return window.fetch(input, options)
-    .then(response => response.json())
-    .then(checkStatus);
-}
-
-
-// Private Methods --------------------------------------------
-
 const states = {
   CREATED: 0,
   WAITING: 1,
@@ -54,17 +42,29 @@ const states = {
   CANCELLED: 5,
 };
 
-function checkStatus(response) {
-  if (response.description === 'User not authorized.') {
-    events.emit('sessionEnded');
-  }
+export function fetch(input, options = {}) {
+  options.mode = options.mode || 'cors';
+  events.emit('request', input);
 
-  if (response.state === states.FAILED) {
-    events.emit('error', response.description);
-    return Promise.reject(response.description);
-  }
-
-  events.emit('response', response);
-  return Promise.resolve(response);
-
+  return window.fetch(input, options)
+    .then(response => {
+      switch (response.status) {
+        case 200: return response.json();
+        case 401: events.emit('sessionEnded'); break;
+        default: Promise.reject(response);
+      }
+      return '{}'; // empty result
+    })
+    .then(json => {
+      if (json.state === states.FAILED) {
+        events.emit('error', json.description);
+        return Promise.reject(json.description);
+      }
+      events.emit('response', json);
+      return Promise.resolve(json);
+    })
+    .catch(error => {
+      events.emit('error', error);
+      return Promise.reject(error);
+    });
 }

@@ -13,19 +13,26 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      loggedIn: false,
+      loggedIn: true,
       loginMessage: '',
+      errorMessage: '',
     };
   },
 
   componentWillMount() {
     api.on('sessionEnded', () => this.setState({
       loggedIn: false,
-      loginMessage: 'Session abgelaufen',
+      loginMessage: 'No valid session found',
     }));
 
-    api.checkLogin()
-      .then(loggedIn => this.setState({ loggedIn }));
+    api.on('error', (error = {}) => this.setState({
+      errorMessage: error.message || error.statusText || 'An unknown error occurred',
+    }));
+
+    if (!this.props.children) {
+      api.checkLogin()
+        .then(loggedIn => this.setState({ loggedIn }));
+    }
   },
 
   handleLogin() {
@@ -42,6 +49,14 @@ export default React.createClass({
   },
 
   renderContent() {
+    if (this.state.errorMessage) {
+      return (
+        <div className="alert alert-error m-b-2">
+          <strong>Fehler</strong> {this.state.errorMessage} <a href="/" className="pull-right">Neu laden</a>
+        </div>
+      );
+    }
+
     if (!this.state.loggedIn) {
       return (
         <Login
