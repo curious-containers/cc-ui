@@ -84,6 +84,7 @@ export default React.createClass({
             <ul>
               <li><Link to="/task-groups">Task Groups</Link></li>
               <li><Link to="/tasks">Tasks</Link></li>
+              {this.state.loggedIn && <li><Link to="/" onClick={api.logout}>Logout</Link></li>}
             </ul>
           </nav>
         </header>
