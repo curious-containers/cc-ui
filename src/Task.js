@@ -34,7 +34,7 @@ export default React.createClass({
       aggregate: [
         {
           $match: {
-            'task_id.0': id,
+            task_id: id,
             state: { $ne: -1 },
           },
         },
