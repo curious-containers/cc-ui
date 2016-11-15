@@ -46,7 +46,7 @@ export default React.createClass({
       <form className={`form ${this.props.className}`}>
         <button
           type="button"
-          className="btn btn-default btn-block"
+          className="btn btn-default pull-right"
           style={{ zIndex: 1 }}
           onClick={this.toggleInput}
         >{this.props.heading} {this.state.open ? '▲' : '▼'}</button>
