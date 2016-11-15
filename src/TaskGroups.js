@@ -58,9 +58,9 @@ export default React.createClass({
 
     return (
       <div>
-        <ToggleInput onChange={this.setAggregate} heading="Custom Query" value={this.state.aggregate} className="pull-right" />
-
         <h1>List of Task Groups</h1>
+
+        <ToggleInput onChange={this.setAggregate} heading="Custom Query" value={this.state.aggregate} />
 
         <table className="table-striped table-hover">
 
