@@ -47,6 +47,7 @@ export default React.createClass({
         <button
           type="button"
           className="btn btn-default btn-block"
+          style={{ zIndex: 1 }}
           onClick={this.toggleInput}
         >{this.props.heading} {this.state.open ? '▲' : '▼'}</button>
         <textarea
