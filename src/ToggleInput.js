@@ -1,4 +1,5 @@
 import React from 'react';
+import { checkJSON } from './utils';
 
 
 export default React.createClass({
@@ -42,6 +43,8 @@ export default React.createClass({
   },
 
   render() {
+    const borderColor = checkJSON(this.state.value) ? '#e0e0e0' : '#f44336';
+
     return (
       <form className={`form ${this.props.className}`}>
         <button
@@ -53,7 +56,7 @@ export default React.createClass({
         <textarea
           rows="10"
           className="full-width"
-          style={{ border: '2px solid #e0e0e0' }}
+          style={{ border: `2px solid ${borderColor}` }}
           hidden={!this.state.open}
           onChange={this.onChange}
           value={this.state.value}

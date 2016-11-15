@@ -58,7 +58,20 @@ export function decodeHtmlEntities(html) {
 }
 
 export function formatJSON(json) {
-  return JSON.stringify(json, undefined, 4).replace(/\\n/g, '\n').replace(/\\"/g, '"');
+  return JSON
+    .stringify(json, undefined, 4)
+    .replace(/\\n/g, '\n')
+    .replace(/\\"/g, '"');
+}
+
+export function checkJSON(string) {
+  try {
+    JSON.parse(string);
+    return true;
+  }
+  catch (e) {
+    return false;
+  }
 }
 
 
