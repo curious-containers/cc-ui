@@ -57,7 +57,7 @@ export default React.createClass({
 
     return (
       <div>
-        <ToggleInput onChange={this.setAggregate} heading="`aggregate` bearbeiten" value={this.state.aggregate} className="pull-right" />
+        <ToggleInput onChange={this.setAggregate} heading="Custom Query" value={this.state.aggregate} className="pull-right" />
 
         <h1>List of Data Containers</h1>
 
