@@ -24,6 +24,7 @@ export default React.createClass({
 
   getInitialState() {
     return {
+      loading: false,
       message: this.props.message || '',
     };
   },
@@ -37,12 +38,18 @@ export default React.createClass({
   onSubmit(ev) {
     if (ev) ev.preventDefault();
 
+    this.setState({ loading: true });
+
     const username = this.refs.username.value;
     const password = this.refs.password.value;
 
     api.login(username, password).then(
-      () => this.props.onSubmit(username),
+      () => {
+        this.setState({ loading: false });
+        this.props.onSubmit(username);
+      },
       err => this.setState({
+        loading: false,
         message: {
           header: 'Fehler beim Login',
           text: err.message || 'unbekannt',
@@ -99,7 +106,9 @@ export default React.createClass({
             <input className="form-control" name="password" type="password" placeholder="Password" required defaultValue={password} ref="password" />
             <span className="form-label">Password</span>
           </label>
-          <button type="submit" className="btn btn-primary btn-block">Einloggen</button>
+          <button type="submit" className="btn btn-primary btn-block">
+            Einloggen {this.state.loading && <span className="loading" />}
+          </button>
         </form>
       </div>
     );
