@@ -42,8 +42,7 @@ export default React.createClass({
   },
 
   setAggregate(aggregate) {
-    this.setState({ aggregate });
-    this.loadData();
+    this.setState({ aggregate }, this.loadData);
   },
 
   loadData() {
