@@ -49,11 +49,14 @@ export function fetch(input, options = {}) {
   return window.fetch(input, options)
     .then(response => {
       switch (response.status) {
-        case 200: return response.json();
-        case 401: events.emit('sessionEnded'); break;
-        default: Promise.reject(response);
+        case 200:
+          return response.json();
+        case 401:
+          events.emit('sessionEnded');
+          return '{}'; // empty result
+        default: // other error
+          return Promise.reject(response);
       }
-      return '{}'; // empty result
     })
     .then(json => {
       if (json.state === states.FAILED) {
