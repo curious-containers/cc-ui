@@ -11,6 +11,7 @@ import ApplicationContainers from './ApplicationContainers';
 import ApplicationContainer from './ApplicationContainer';
 import DataContainers from './DataContainers';
 import DataContainer from './DataContainer';
+import Cluster from './Cluster';
 import './index.css';
 
 
@@ -30,6 +31,8 @@ const router = (
 
       <Route path="data-containers" component={DataContainers} />
       <Route path="data-containers/:id" component={DataContainer} />
+
+      <Route path="cluster" component={Cluster} />
     </Route>
   </Router>
 );

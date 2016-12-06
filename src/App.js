@@ -75,7 +75,7 @@ export default React.createClass({
     return (
       <div className="container">
         <header className="site-header dashed-bottom">
-          <Link to="/" className="site-title">Curious Containers</Link>
+          <Link to="/" className="site-title">CC</Link>
           <nav className="responsive-nav">
             <label htmlFor="navigation-toggle">≡</label>
           </nav>
@@ -86,6 +86,7 @@ export default React.createClass({
               <li><Link activeClassName="active" to="/tasks">Tasks</Link></li>
               <li><Link activeClassName="active" to="/application-containers">App Containers</Link></li>
               <li><Link activeClassName="active" to="/data-containers">Data Containers</Link></li>
+              <li><Link activeClassName="active" to="/cluster">Cluster</Link></li>
               {this.state.loggedIn && <li><Link to="/" onClick={api.logout}>Logout</Link></li>}
             </ul>
           </nav>

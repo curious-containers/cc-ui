@@ -70,6 +70,10 @@ export class Api {
     return this.post(`${this.host}/data-containers/query`, { body: JSON.stringify(payload) });
   }
 
+  getNodes(payload) {
+    return this.get(`${this.host}/nodes`);
+  }
+
 }
 
 function getAuthHeaders(credentials) {
