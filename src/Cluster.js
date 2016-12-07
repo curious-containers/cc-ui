@@ -28,7 +28,8 @@ export default React.createClass({
   renderNode(node) {
     const options = { showLabel: false };
     const group = groupName => (value, i) => ({ value, className: `${groupName}-${i % 4}` }); // repeat after 4
-    const diff = node.total_ram - _.sum(node.active_application_containers) - _.sum(node.active_data_containers);
+    const sum = _.sum(node.active_application_containers) + _.sum(node.active_data_containers);
+    const diff = node.total_ram - sum;
     const series = [
       ...node.active_application_containers.map(group('chart-group-red')),
       ...node.active_data_containers.map(group('chart-group-blue')),
@@ -39,7 +40,7 @@ export default React.createClass({
       <div className="cell cell-3" key={node.name}>
         <Chart data={{ series }} options={options} />
         <strong>{node.name}</strong><br />
-        RAM: {node.reserved_ram} / {node.total_ram} MB<br />
+        RAM: {sum > node.total_ram ? <strong className="text-error">{sum}</strong> : sum} / {node.total_ram} MB<br />
         CPUs: {node.total_cpus}
       </div>
     );
