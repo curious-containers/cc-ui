@@ -13,10 +13,12 @@ export default React.createClass({
   },
 
   getInitialState() {
+    const cluster_node = this.props.location.query.cluster_node;
     const aggregate = [
       {
         $match: {
-          state: { $ne: -1 },
+          cluster_node,
+          state: cluster_node ? { $nin: [-1, 3, 4, 5] } : { $ne: -1 },
         },
       },
       {

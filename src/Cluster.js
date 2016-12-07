@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { Link } from 'react-router';
 import { api } from './Api';
 import Chart from './Chart';
 
@@ -41,7 +42,8 @@ export default React.createClass({
         <Chart data={{ series }} options={options} />
         <strong>{node.name}</strong><br />
         RAM: {sum > node.total_ram ? <strong className="text-error">{sum}</strong> : sum} / {node.total_ram} MB<br />
-        CPUs: {node.total_cpus}
+        CPUs: {node.total_cpus}<br />
+        Containers: <Link to={`/application-containers?cluster_node=${node.name}`}>App</Link> | <Link to={`/data-containers?cluster_node=${node.name}`}>Data</Link>
       </div>
     );
   },
@@ -58,12 +60,12 @@ export default React.createClass({
         <h1>Healthy Nodes</h1>
 
         <div className="grid">
-          {_.map(nodes.healthy_nodes, this.renderNode)}
+          {_.sortBy(nodes.healthy_nodes, 'name').map(this.renderNode)}
         </div>
 
         <h1>Dead Nodes</h1>
 
-        {_.map(nodes.dead_nodes, node =>
+        {_.sortBy(nodes.dead_nodes, 'name').map(node =>
           <details key={node.name}>
             <summary>{node.name || 'No name given'}</summary>
             <pre className="scroll">{node.description || 'No description given'}</pre>
