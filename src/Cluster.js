@@ -26,16 +26,13 @@ export default React.createClass({
   },
 
   renderNode(node) {
-    console.log('healthy node', node);
-
-    const options = {
-      total: node.total_ram,
-      showLabel: false,
-    };
-    const group = groupName => (value, i) => ({ value, className: `${groupName}-${i}` });
+    const options = { showLabel: false };
+    const group = groupName => (value, i) => ({ value, className: `${groupName}-${i % 4}` }); // repeat after 4
+    const diff = node.total_ram - _.sum(node.active_application_containers) - _.sum(node.active_data_containers);
     const series = [
       ...node.active_application_containers.map(group('chart-group-red')),
       ...node.active_data_containers.map(group('chart-group-blue')),
+      { value: (diff < 0 ? 0 : diff), className: 'chart-group-gray-0' },
     ];
 
     return (

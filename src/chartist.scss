@@ -302,23 +302,22 @@ $ct-series-colors: (
 
 // Groups -----------------------------------------------------
 
+.chart-group-gray-0 .ct-slice-pie { fill: #eee; }
+
 .chart-group-red-0 .ct-slice-pie { fill: #b71c1c; }
 .chart-group-red-1 .ct-slice-pie { fill: #d32f2f; }
 .chart-group-red-2 .ct-slice-pie { fill: #f44336; }
 .chart-group-red-3 .ct-slice-pie { fill: #e57373; }
-.chart-group-red-4 .ct-slice-pie { fill: #ffcdd2; }
 
 .chart-group-blue-0 .ct-slice-pie { fill: #0d47a1; }
 .chart-group-blue-1 .ct-slice-pie { fill: #1976d2; }
 .chart-group-blue-2 .ct-slice-pie { fill: #2196f3; }
 .chart-group-blue-3 .ct-slice-pie { fill: #64b5f6; }
-.chart-group-blue-4 .ct-slice-pie { fill: #bbdefb; }
 
 .chart-group-yellow-0 .ct-slice-pie { fill: #f57f17; }
 .chart-group-yellow-1 .ct-slice-pie { fill: #fbc02d; }
 .chart-group-yellow-2 .ct-slice-pie { fill: #ffeb3b; }
 .chart-group-yellow-3 .ct-slice-pie { fill: #fff176; }
-.chart-group-yellow-4 .ct-slice-pie { fill: #fff9c4; }
 
 
 // Tooltips ---------------------------------------------------
