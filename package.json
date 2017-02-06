@@ -12,7 +12,8 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
-    "tawian-frontend": "^1.1.8"
+    "tawian-frontend": "^1.1.8",
+    "typeface-cousine": "0.0.21"
   },
   "scripts": {
     "start": "react-scripts start",

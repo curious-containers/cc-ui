@@ -1,4 +1,5 @@
 import 'tawian-frontend';
+import 'typeface-cousine';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, IndexRedirect, Route, hashHistory } from 'react-router';
