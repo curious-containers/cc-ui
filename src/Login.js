@@ -18,6 +18,7 @@ export default React.createClass({
         username: '',
         password: '',
       },
+      message: '',
       autologin: false,
     };
   },
@@ -25,7 +26,7 @@ export default React.createClass({
   getInitialState() {
     return {
       loading: false,
-      message: this.props.message || '',
+      message: this.props.message,
     };
   },
 
