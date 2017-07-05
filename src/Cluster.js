@@ -1,14 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import _ from 'lodash';
 import { Link } from 'react-router';
 import { api } from './Api';
 import Chart from './Chart';
 
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    location: React.PropTypes.object,
+    location: PropTypes.object,
   },
 
   getInitialState() {

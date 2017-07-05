@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import createReactClass from 'create-react-class';
 import _ from 'lodash';
 import './flextable.css';
 
@@ -49,7 +50,7 @@ export function Row(props) {
   );
 }
 
-export const FormRow = React.createClass({
+export const FormRow = createReactClass({
   getInitialState() {
     return { switch: true };
   },

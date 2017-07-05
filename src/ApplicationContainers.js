@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import _ from 'lodash';
 import { Link } from 'react-router';
 import { fromMongoDate } from './utils';
@@ -6,10 +8,10 @@ import { api, stateIDs, stateToClass } from './Api';
 import ToggleInput from './ToggleInput';
 
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    location: React.PropTypes.object,
+    location: PropTypes.object,
   },
 
   getInitialState() {

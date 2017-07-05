@@ -1,17 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import Chartist from 'chartist';
 import 'chartist-plugin-tooltips';
 import './chartist.css';
 
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    options: React.PropTypes.object,
-    type: React.PropTypes.string,
-    style: React.PropTypes.object,
-    className: React.PropTypes.string,
+    data: PropTypes.object.isRequired,
+    options: PropTypes.object,
+    type: PropTypes.string,
+    style: PropTypes.object,
+    className: PropTypes.string,
   },
 
   getDefaultProps() {

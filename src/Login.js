@@ -1,15 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import { api } from './Api';
 import './login.css';
 
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    onSubmit: React.PropTypes.func.isRequired,
-    credentials: React.PropTypes.object,
-    autologin: React.PropTypes.bool,
-    message: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]),
+    onSubmit: PropTypes.func.isRequired,
+    credentials: PropTypes.object,
+    autologin: PropTypes.bool,
+    message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   },
 
   getDefaultProps() {

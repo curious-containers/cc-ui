@@ -1,14 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import { Link } from 'react-router';
 import Login from './Login';
 import { api } from './Api';
 import { autologin, credentials } from './config.js';
 
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    children: React.PropTypes.object,
+    children: PropTypes.object,
   },
 
   getInitialState() {

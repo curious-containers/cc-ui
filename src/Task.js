@@ -1,14 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import _ from 'lodash';
 import { Link } from 'react-router';
 import { fromMongoDate, formatJSON } from './utils';
 import { api, stateIDs, stateToClass } from './Api';
 
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    params: React.PropTypes.object,
+    params: PropTypes.object,
   },
 
   getInitialState() {

@@ -1,15 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import { checkJSON } from './utils';
 
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    onChange: React.PropTypes.func.isRequired,
-    heading: React.PropTypes.string,
-    value: React.PropTypes.string,
-    className: React.PropTypes.string,
-    open: React.PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    heading: PropTypes.string,
+    value: PropTypes.string,
+    className: PropTypes.string,
+    open: PropTypes.bool,
   },
 
   getDefaultProps() {
