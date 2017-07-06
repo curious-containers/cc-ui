@@ -1,7 +1,7 @@
 {
   "name": "cc-ui",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
+  "proxy": "https://ccserver.f4.htw-berlin.de",
   "devDependencies": {
     "react-scripts": "1.0.10"
   },

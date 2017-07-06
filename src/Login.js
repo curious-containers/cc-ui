@@ -109,7 +109,7 @@ export default createReactClass({
             <input className="form-control" name="password" type="password" placeholder="Password" required defaultValue={password} ref="password" />
             <span className="form-label">Password</span>
           </label>
-          <button type="submit" className="btn btn-primary btn-block">
+          <button type="submit" className="btn btn-primary full-width">
             Einloggen {this.state.loading && <span className="loading" />}
           </button>
         </form>

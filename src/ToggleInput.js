@@ -65,7 +65,7 @@ export default createReactClass({
         />
         <button
           type="button"
-          className="btn btn-primary btn-block"
+          className="btn btn-primary full-width"
           hidden={!this.state.open}
           onClick={this.onSubmit}
         >Save</button>
