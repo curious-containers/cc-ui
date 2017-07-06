@@ -20,6 +20,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "sync": "rsync -r --stats --human-readable build/* cboost09:/opt/cc-ui/"
+    "sync": "rsync -r --stats --human-readable build/* ccserver:/opt/cc-ui/"
   }
 }
