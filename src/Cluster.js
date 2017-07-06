@@ -25,7 +25,7 @@ export default createReactClass({
 
   loadData() {
     api.getNodes()
-      .then(nodes => this.setState({ nodes }));
+      .then(({ nodes }) => this.setState({ nodes }));
   },
 
   renderNode(node) {
@@ -40,12 +40,12 @@ export default createReactClass({
     ];
 
     return (
-      <div className="cell cell-3" key={node.name}>
+      <div className="cell cell-3" key={node.cluster_node}>
         <Chart data={{ series }} options={options} />
-        <strong>{node.name}</strong><br />
+        <strong>{node.cluster_node}</strong><br />
         RAM: {sum > node.total_ram ? <strong className="text-error">{sum}</strong> : sum} / {node.total_ram} MB<br />
         CPUs: {node.total_cpus}<br />
-        Containers: <Link to={`/application-containers?cluster_node=${node.name}`}>App</Link> | <Link to={`/data-containers?cluster_node=${node.name}`}>Data</Link>
+        Containers: <Link to={`/application-containers?cluster_node=${node.cluster_node}`}>App</Link> | <Link to={`/data-containers?cluster_node=${node.cluster_node}`}>Data</Link>
       </div>
     );
   },
@@ -57,20 +57,22 @@ export default createReactClass({
       return (<h1>Loading Nodes<span className="loading" /></h1>);
     }
 
+    const [onlineNodes, offlineNodes] = _.partition(nodes, 'is_online');
+
     return (
       <div>
-        <h1>Healthy Nodes</h1>
+        <h1>Online Nodes</h1>
 
-        <div className="grid">
-          {_.sortBy(nodes.healthy_nodes, 'name').map(this.renderNode)}
+        <div className="grid m-b-2">
+          {_.sortBy(onlineNodes, 'name').map(this.renderNode)}
         </div>
 
-        <h1>Dead Nodes</h1>
+        <h1>Offline Nodes</h1>
 
-        {_.sortBy(nodes.dead_nodes, 'name').map(node =>
-          <details key={node.name}>
-            <summary>{node.name || 'No name given'}</summary>
-            <pre className="scroll">{node.description || 'No description given'}</pre>
+        {_.sortBy(offlineNodes, 'name').map(node =>
+          <details key={node.cluster_node}>
+            <summary>{node.cluster_node || 'No name given'}</summary>
+            <pre className="scroll">{node.debug_info || 'No description given'}</pre>
           </details>
         )}
       </div>
